@@ -21,6 +21,6 @@ func (r *Route) Register() {
 	v1 := r.router.Group("v1/api")
 	hello := v1.Group("/hello")
 	{
-		hello.GET("", r.handler.HelloHandler.GetHello)
+		hello.GET("", r.handler.TaskHandler.Get)
 	}
 }

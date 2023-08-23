@@ -8,23 +8,23 @@ import (
 	"github.com/hifat/gock/internal/config"
 	"github.com/hifat/gock/internal/database"
 	"github.com/hifat/gock/internal/handler"
-	"github.com/hifat/gock/internal/handler/helloHandler"
-	"github.com/hifat/gock/internal/repository/helloRepository"
-	"github.com/hifat/gock/internal/service/helloService"
+	"github.com/hifat/gock/internal/handler/taskHandler"
+	"github.com/hifat/gock/internal/repository/taskRepository"
+	"github.com/hifat/gock/internal/service/taskService"
 )
 
 var RepoSet = wire.NewSet(
 	database.NewPostgresDBSet,
-	helloRepository.NewHelloRepoSet,
+	taskRepository.NewTaskRepoSet,
 )
 
 var ServiceSet = wire.NewSet(
-	helloService.NewHelloServiceSet,
+	taskService.NewTaskServiceSet,
 )
 
 var HandlerSet = wire.NewSet(
 	handler.NewHandlerSet,
-	helloHandler.NewHelloHandlerSet,
+	taskHandler.NewTaskHandlerSet,
 )
 
 func InitializeAPI(config config.AppConfig) (Adapter, func()) {

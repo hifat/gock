@@ -11,19 +11,19 @@ import (
 	"github.com/hifat/gock/internal/config"
 	"github.com/hifat/gock/internal/database"
 	"github.com/hifat/gock/internal/handler"
-	"github.com/hifat/gock/internal/handler/helloHandler"
-	"github.com/hifat/gock/internal/repository/helloRepository"
-	"github.com/hifat/gock/internal/service/helloService"
+	"github.com/hifat/gock/internal/handler/taskHandler"
+	"github.com/hifat/gock/internal/repository/taskRepository"
+	"github.com/hifat/gock/internal/service/taskService"
 )
 
 // Injectors from wire.go:
 
 func InitializeAPI(config2 config.AppConfig) (Adapter, func()) {
 	db, cleanup := database.NewPostgresConnection(config2)
-	helloDomainHelloRepository := helloRepository.NewHelloRepository(db)
-	helloDomainHelloService := helloService.NewHelloService(helloDomainHelloRepository)
-	helloHandlerHelloHandler := helloHandler.NewHelloHandler(helloDomainHelloService)
-	handlerHandler := handler.NewHandler(helloHandlerHelloHandler)
+	taskDomainTaskRepository := taskRepository.NewtaskRepository(db)
+	taskDomainTaskService := taskService.NewTaskService(taskDomainTaskRepository)
+	taskHandlerTaskHandler := taskHandler.NewTaskHandler(taskDomainTaskService)
+	handlerHandler := handler.NewHandler(taskHandlerTaskHandler)
 	adapter := NewAdapter(handlerHandler)
 	return adapter, func() {
 		cleanup()
@@ -32,8 +32,8 @@ func InitializeAPI(config2 config.AppConfig) (Adapter, func()) {
 
 // wire.go:
 
-var RepoSet = wire.NewSet(database.NewPostgresDBSet, helloRepository.NewHelloRepoSet)
+var RepoSet = wire.NewSet(database.NewPostgresDBSet, taskRepository.NewTaskRepoSet)
 
-var ServiceSet = wire.NewSet(helloService.NewHelloServiceSet)
+var ServiceSet = wire.NewSet(taskService.NewTaskServiceSet)
 
-var HandlerSet = wire.NewSet(handler.NewHandlerSet, helloHandler.NewHelloHandlerSet)
+var HandlerSet = wire.NewSet(handler.NewHandlerSet, taskHandler.NewTaskHandlerSet)
