@@ -6,3 +6,10 @@ The project for learning unit test
 
 ```bash
 make run
+```
+
+### Migrate DB
+
+```bash
+make migrate
+```
