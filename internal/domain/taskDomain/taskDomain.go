@@ -1,21 +1,25 @@
 package taskDomain
 
-import "github.com/google/uuid"
+import (
+	"context"
+
+	"github.com/google/uuid"
+)
 
 type TaskService interface {
-	Get(res *[]Task) error
-	GetByID(res *Task, taskID uuid.UUID) error
-	Create(req *TaskRequest) (*Task, error)
-	Update(req *TaskRequest, taskID uuid.UUID) (*Task, error)
-	Delete(taskID uuid.UUID) error
+	Get(ctx context.Context, res *[]Task) error
+	GetByID(ctx context.Context, res *Task, taskID uuid.UUID) error
+	Create(ctx context.Context, req *TaskRequest) (*Task, error)
+	Update(ctx context.Context, req *TaskRequest, taskID uuid.UUID) (*Task, error)
+	Delete(ctx context.Context, taskID uuid.UUID) error
 }
 
 type TaskRepository interface {
-	Get(res *[]Task) error
-	GetByID(res *Task, taskID uuid.UUID) error
-	Create(req *TaskRequest) (*Task, error)
-	Update(req *TaskRequest, taskID uuid.UUID) (*Task, error)
-	Delete(taskID uuid.UUID) error
+	Get(ctx context.Context, res *[]Task) error
+	GetByID(ctx context.Context, res *Task, taskID uuid.UUID) error
+	Create(ctx context.Context, req *TaskRequest) (*Task, error)
+	Update(ctx context.Context, req *TaskRequest, taskID uuid.UUID) (*Task, error)
+	Delete(ctx context.Context, taskID uuid.UUID) error
 }
 
 type Task struct {

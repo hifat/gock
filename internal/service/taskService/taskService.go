@@ -1,6 +1,8 @@
 package taskService
 
 import (
+	"context"
+
 	"github.com/google/uuid"
 	"github.com/google/wire"
 	"github.com/hifat/gock/internal/domain/taskDomain"
@@ -18,8 +20,8 @@ func NewTaskService(taskRepo taskDomain.TaskRepository) taskDomain.TaskService {
 	return &taskService{taskRepo}
 }
 
-func (r *taskService) Get(res *[]taskDomain.Task) error {
-	err := r.taskRepo.Get(res)
+func (r *taskService) Get(ctx context.Context, res *[]taskDomain.Task) error {
+	err := r.taskRepo.Get(ctx, res)
 	if err != nil {
 		zlog.Error(err)
 		return ernos.InternalServerError()
@@ -28,8 +30,8 @@ func (r *taskService) Get(res *[]taskDomain.Task) error {
 	return nil
 }
 
-func (r *taskService) GetByID(res *taskDomain.Task, taskID uuid.UUID) error {
-	err := r.taskRepo.GetByID(res, taskID)
+func (r *taskService) GetByID(ctx context.Context, res *taskDomain.Task, taskID uuid.UUID) error {
+	err := r.taskRepo.GetByID(ctx, res, taskID)
 	if err != nil {
 		if err.Error() == ernos.M.RECORD_NOTFOUND {
 			return ernos.NotFound()
@@ -42,8 +44,8 @@ func (r *taskService) GetByID(res *taskDomain.Task, taskID uuid.UUID) error {
 	return nil
 }
 
-func (r *taskService) Create(req *taskDomain.TaskRequest) (*taskDomain.Task, error) {
-	res, err := r.taskRepo.Create(req)
+func (r *taskService) Create(ctx context.Context, req *taskDomain.TaskRequest) (*taskDomain.Task, error) {
+	res, err := r.taskRepo.Create(ctx, req)
 	if err != nil {
 		zlog.Error(err)
 		return nil, ernos.InternalServerError()
@@ -52,8 +54,8 @@ func (r *taskService) Create(req *taskDomain.TaskRequest) (*taskDomain.Task, err
 	return res, nil
 }
 
-func (r *taskService) Update(req *taskDomain.TaskRequest, taskID uuid.UUID) (*taskDomain.Task, error) {
-	res, err := r.taskRepo.Update(req, taskID)
+func (r *taskService) Update(ctx context.Context, req *taskDomain.TaskRequest, taskID uuid.UUID) (*taskDomain.Task, error) {
+	res, err := r.taskRepo.Update(ctx, req, taskID)
 	if err != nil {
 		zlog.Error(err)
 		return nil, ernos.InternalServerError()
@@ -62,8 +64,8 @@ func (r *taskService) Update(req *taskDomain.TaskRequest, taskID uuid.UUID) (*ta
 	return res, nil
 }
 
-func (r *taskService) Delete(taskID uuid.UUID) error {
-	err := r.taskRepo.Delete(taskID)
+func (r *taskService) Delete(ctx context.Context, taskID uuid.UUID) error {
+	err := r.taskRepo.Delete(ctx, taskID)
 	if err != nil {
 		zlog.Error(err)
 		return ernos.InternalServerError()

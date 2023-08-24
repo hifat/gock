@@ -23,7 +23,7 @@ func NewTaskHandler(taskSrv taskDomain.TaskService) TaskHandler {
 
 func (h *TaskHandler) Get(c *gin.Context) {
 	res := []taskDomain.Task{}
-	if err := h.taskSrv.Get(&res); err != nil {
+	if err := h.taskSrv.Get(c.Request.Context(), &res); err != nil {
 		handlerResponse.Error(c, err)
 		return
 	}
@@ -41,7 +41,7 @@ func (h *TaskHandler) GetByID(c *gin.Context) {
 	}
 
 	var res taskDomain.Task
-	if err := h.taskSrv.GetByID(&res, taskID); err != nil {
+	if err := h.taskSrv.GetByID(c.Request.Context(), &res, taskID); err != nil {
 		handlerResponse.Error(c, err)
 		return
 	}
@@ -58,7 +58,7 @@ func (h *TaskHandler) Create(c *gin.Context) {
 		return
 	}
 
-	res, err := h.taskSrv.Create(&req)
+	res, err := h.taskSrv.Create(c.Request.Context(), &req)
 	if err != nil {
 		handlerResponse.Error(c, err)
 		return
@@ -82,7 +82,7 @@ func (h *TaskHandler) Update(c *gin.Context) {
 		return
 	}
 
-	res, err := h.taskSrv.Update(&req, taskID)
+	res, err := h.taskSrv.Update(c.Request.Context(), &req, taskID)
 	if err != nil {
 		handlerResponse.Error(c, err)
 		return
@@ -100,7 +100,7 @@ func (h *TaskHandler) Delete(c *gin.Context) {
 		return
 	}
 
-	if err := h.taskSrv.Delete(taskID); err != nil {
+	if err := h.taskSrv.Delete(c.Request.Context(), taskID); err != nil {
 		handlerResponse.Error(c, err)
 		return
 	}
