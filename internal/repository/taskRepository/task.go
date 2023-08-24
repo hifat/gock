@@ -10,25 +10,27 @@ import (
 	"gorm.io/gorm"
 )
 
-var NewTaskRepoSet = wire.NewSet(NewtaskRepository)
+var NewTaskRepoSet = wire.NewSet(New)
 
 type taskRepository struct {
 	db *gorm.DB
 }
 
-func NewtaskRepository(db *gorm.DB) taskDomain.TaskRepository {
+func New(db *gorm.DB) taskDomain.TaskRepository {
 	return &taskRepository{db}
 }
 
 func (r *taskRepository) Get(ctx context.Context, res *[]taskDomain.Task) error {
 	return r.db.WithContext(ctx).
 		Model(&model.Task{}).
+		Select("id, name, done, created_at").
 		Find(&res).Error
 }
 
 func (r *taskRepository) GetByID(ctx context.Context, res *taskDomain.Task, taskID uuid.UUID) error {
 	return r.db.WithContext(ctx).
 		Model(&model.Task{}).
+		Select("id, name, done, created_at").
 		Where("id = ?", taskID).
 		Find(&res).Error
 }

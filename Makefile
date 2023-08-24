@@ -3,3 +3,6 @@ run:
 
 migrate:
 	go run ./cmd/migrate/main.go
+
+test-repo:
+	go test ./internal/repository/... -v
