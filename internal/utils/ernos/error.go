@@ -17,7 +17,7 @@ func (e Ernos) Error() string {
 }
 
 func NotFound(value ...string) error {
-	msg := M.RECORD_NOTFOUND
+	msg := M.RECORD_NOT_FOUND
 	if len(value) > 0 {
 		msg = strings.Join(value, "") + " not found"
 	}
@@ -25,7 +25,7 @@ func NotFound(value ...string) error {
 	return Ernos{
 		Status:  http.StatusNotFound,
 		Message: msg,
-		Code:    C.RECORD_NOTFOUND,
+		Code:    C.RECORD_NOT_FOUND,
 	}
 }
 

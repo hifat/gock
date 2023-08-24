@@ -32,7 +32,7 @@ func (r *taskRepository) GetByID(ctx context.Context, res *taskDomain.Task, task
 		Model(&model.Task{}).
 		Select("id, name, done, created_at").
 		Where("id = ?", taskID).
-		Find(&res).Error
+		First(&res).Error
 }
 
 func (r *taskRepository) Create(ctx context.Context, req *taskDomain.TaskRequest) (res *taskDomain.Task, err error) {

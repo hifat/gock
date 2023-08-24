@@ -33,7 +33,7 @@ func (r *taskService) Get(ctx context.Context, res *[]taskDomain.Task) error {
 func (r *taskService) GetByID(ctx context.Context, res *taskDomain.Task, taskID uuid.UUID) error {
 	err := r.taskRepo.GetByID(ctx, res, taskID)
 	if err != nil {
-		if err.Error() == ernos.M.RECORD_NOTFOUND {
+		if err.Error() == ernos.M.RECORD_NOT_FOUND {
 			return ernos.NotFound()
 		}
 
