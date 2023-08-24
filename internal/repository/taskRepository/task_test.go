@@ -19,7 +19,7 @@ type testTaskRepoSuite struct {
 	db   *gorm.DB
 	mock sqlmock.Sqlmock
 
-	taskRepo taskDomain.TaskRepository
+	taskRepo taskRepository.ITaskRepository
 }
 
 func TestUserRepo(t *testing.T) {

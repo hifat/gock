@@ -6,17 +6,27 @@ import (
 	"github.com/google/uuid"
 	"github.com/google/wire"
 	"github.com/hifat/gock/internal/domain/taskDomain"
+	"github.com/hifat/gock/internal/repository/taskRepository"
 	"github.com/hifat/gock/internal/utils/ernos"
 	zlog "github.com/hifat/gock/pkg"
 )
 
+//go:generate mockgen -source=./task.go -destination=./mockTaskService/mockTaskService.go -package=mockUserService
+type ITaskService interface {
+	Get(ctx context.Context, res *[]taskDomain.Task) error
+	GetByID(ctx context.Context, res *taskDomain.Task, taskID uuid.UUID) error
+	Create(ctx context.Context, req *taskDomain.TaskRequest) (*taskDomain.Task, error)
+	Update(ctx context.Context, req *taskDomain.TaskRequest, taskID uuid.UUID) (*taskDomain.Task, error)
+	Delete(ctx context.Context, taskID uuid.UUID) error
+}
+
 var NewTaskServiceSet = wire.NewSet(NewTaskService)
 
 type taskService struct {
-	taskRepo taskDomain.TaskRepository
+	taskRepo taskRepository.ITaskRepository
 }
 
-func NewTaskService(taskRepo taskDomain.TaskRepository) taskDomain.TaskService {
+func NewTaskService(taskRepo taskRepository.ITaskRepository) ITaskService {
 	return &taskService{taskRepo}
 }
 

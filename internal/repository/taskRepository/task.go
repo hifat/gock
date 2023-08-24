@@ -10,13 +10,22 @@ import (
 	"gorm.io/gorm"
 )
 
+//go:generate mockgen -source=./task.go -destination=./mockTaskRepository/mockTaskRepository.go -package=mockTaskRepository
+type ITaskRepository interface {
+	Get(ctx context.Context, res *[]taskDomain.Task) error
+	GetByID(ctx context.Context, res *taskDomain.Task, taskID uuid.UUID) error
+	Create(ctx context.Context, req *taskDomain.TaskRequest) (*taskDomain.Task, error)
+	Update(ctx context.Context, req *taskDomain.TaskRequest, taskID uuid.UUID) (*taskDomain.Task, error)
+	Delete(ctx context.Context, taskID uuid.UUID) error
+}
+
 var NewTaskRepoSet = wire.NewSet(New)
 
 type taskRepository struct {
 	db *gorm.DB
 }
 
-func New(db *gorm.DB) taskDomain.TaskRepository {
+func New(db *gorm.DB) ITaskRepository {
 	return &taskRepository{db}
 }
 

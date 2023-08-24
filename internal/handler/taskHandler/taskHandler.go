@@ -8,16 +8,17 @@ import (
 	"github.com/google/wire"
 	"github.com/hifat/gock/internal/domain/taskDomain"
 	"github.com/hifat/gock/internal/handler/handlerResponse"
+	"github.com/hifat/gock/internal/service/taskService"
 	"github.com/hifat/gock/internal/utils/httpResponse"
 )
 
 var NewTaskHandlerSet = wire.NewSet(NewTaskHandler)
 
 type TaskHandler struct {
-	taskSrv taskDomain.TaskService
+	taskSrv taskService.ITaskService
 }
 
-func NewTaskHandler(taskSrv taskDomain.TaskService) TaskHandler {
+func NewTaskHandler(taskSrv taskService.ITaskService) TaskHandler {
 	return TaskHandler{taskSrv}
 }
 
