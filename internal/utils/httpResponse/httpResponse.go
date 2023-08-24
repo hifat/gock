@@ -1,6 +1,6 @@
-package uResponse
+package httpResponse
 
-type SuccessResponse struct {
+type Success struct {
 	Status int `json:"-"`
 
 	Message string `json:"message,omitempty"`

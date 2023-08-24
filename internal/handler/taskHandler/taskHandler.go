@@ -8,7 +8,7 @@ import (
 	"github.com/google/wire"
 	"github.com/hifat/gock/internal/domain/taskDomain"
 	"github.com/hifat/gock/internal/handler/handlerResponse"
-	"github.com/hifat/gock/internal/utils/uResponse"
+	"github.com/hifat/gock/internal/utils/httpResponse"
 )
 
 var NewTaskHandlerSet = wire.NewSet(NewTaskHandler)
@@ -28,7 +28,7 @@ func (h *TaskHandler) Get(c *gin.Context) {
 		return
 	}
 
-	c.JSON(http.StatusOK, uResponse.SuccessResponse{
+	c.JSON(http.StatusOK, httpResponse.Success{
 		Items: res,
 	})
 }
@@ -46,7 +46,7 @@ func (h *TaskHandler) GetByID(c *gin.Context) {
 		return
 	}
 
-	c.JSON(http.StatusOK, uResponse.SuccessResponse{
+	c.JSON(http.StatusOK, httpResponse.Success{
 		Item: res,
 	})
 }
@@ -64,7 +64,7 @@ func (h *TaskHandler) Create(c *gin.Context) {
 		return
 	}
 
-	c.JSON(http.StatusCreated, uResponse.SuccessResponse{
+	c.JSON(http.StatusCreated, httpResponse.Success{
 		Item: res,
 	})
 }
@@ -88,7 +88,7 @@ func (h *TaskHandler) Update(c *gin.Context) {
 		return
 	}
 
-	c.JSON(http.StatusOK, uResponse.SuccessResponse{
+	c.JSON(http.StatusOK, httpResponse.Success{
 		Item: res,
 	})
 }
@@ -105,7 +105,7 @@ func (h *TaskHandler) Delete(c *gin.Context) {
 		return
 	}
 
-	c.JSON(http.StatusOK, uResponse.SuccessResponse{
+	c.JSON(http.StatusOK, httpResponse.Success{
 		Message: http.StatusText(http.StatusOK),
 	})
 }
