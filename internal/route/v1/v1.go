@@ -19,8 +19,13 @@ func New(router *gin.RouterGroup, h handler.Handler) *Route {
 
 func (r *Route) Register() {
 	v1 := r.router.Group("v1/api")
-	hello := v1.Group("/hello")
+
+	tasks := v1.Group("/tasks")
 	{
-		hello.GET("", r.handler.TaskHandler.Get)
+		tasks.GET("", r.handler.TaskHandler.Get)
+		tasks.GET("/:taskID", r.handler.TaskHandler.GetByID)
+		tasks.POST("", r.handler.TaskHandler.Create)
+		tasks.PATCH("/:taskID", r.handler.TaskHandler.Update)
+		tasks.DELETE("/:taskID", r.handler.TaskHandler.Delete)
 	}
 }
