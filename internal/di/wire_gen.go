@@ -20,9 +20,9 @@ import (
 
 func InitializeAPI(config2 config.AppConfig) (Adapter, func()) {
 	db, cleanup := database.NewPostgresConnection(config2)
-	taskDomainTaskRepository := taskRepository.New(db)
-	taskDomainTaskService := taskService.NewTaskService(taskDomainTaskRepository)
-	taskHandlerTaskHandler := taskHandler.NewTaskHandler(taskDomainTaskService)
+	iTaskRepository := taskRepository.New(db)
+	iTaskService := taskService.New(iTaskRepository)
+	taskHandlerTaskHandler := taskHandler.NewTaskHandler(iTaskService)
 	handlerHandler := handler.NewHandler(taskHandlerTaskHandler)
 	adapter := NewAdapter(handlerHandler)
 	return adapter, func() {

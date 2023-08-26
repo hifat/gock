@@ -20,13 +20,13 @@ type ITaskService interface {
 	Delete(ctx context.Context, taskID uuid.UUID) error
 }
 
-var NewTaskServiceSet = wire.NewSet(NewTaskService)
+var NewTaskServiceSet = wire.NewSet(New)
 
 type taskService struct {
 	taskRepo taskRepository.ITaskRepository
 }
 
-func NewTaskService(taskRepo taskRepository.ITaskRepository) ITaskService {
+func New(taskRepo taskRepository.ITaskRepository) ITaskService {
 	return &taskService{taskRepo}
 }
 
