@@ -22,7 +22,7 @@ func InitializeAPI(config2 config.AppConfig) (Adapter, func()) {
 	db, cleanup := database.NewPostgresConnection(config2)
 	iTaskRepository := taskRepository.New(db)
 	iTaskService := taskService.New(iTaskRepository)
-	taskHandlerTaskHandler := taskHandler.NewTaskHandler(iTaskService)
+	taskHandlerTaskHandler := taskHandler.New(iTaskService)
 	handlerHandler := handler.NewHandler(taskHandlerTaskHandler)
 	adapter := NewAdapter(handlerHandler)
 	return adapter, func() {
@@ -36,4 +36,4 @@ var RepoSet = wire.NewSet(database.NewPostgresDBSet, taskRepository.NewTaskRepoS
 
 var ServiceSet = wire.NewSet(taskService.NewTaskServiceSet)
 
-var HandlerSet = wire.NewSet(handler.NewHandlerSet, taskHandler.NewTaskHandlerSet)
+var HandlerSet = wire.NewSet(handler.NewHandlerSet, taskHandler.NewSet)

@@ -24,7 +24,7 @@ var ServiceSet = wire.NewSet(
 
 var HandlerSet = wire.NewSet(
 	handler.NewHandlerSet,
-	taskHandler.NewTaskHandlerSet,
+	taskHandler.NewSet,
 )
 
 func InitializeAPI(config config.AppConfig) (Adapter, func()) {

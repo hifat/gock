@@ -15,24 +15,24 @@ import (
 	"go.uber.org/mock/gomock"
 )
 
-type testUserServiceSuite struct {
+type testTaskServiceSuite struct {
 	suite.Suite
 
 	mockTaskRepo *mockTaskRepository.MockITaskRepository
 	underTest    taskService.ITaskService
 }
 
-func (s *testUserServiceSuite) SetupSuite() {
+func (s *testTaskServiceSuite) SetupSuite() {
 	ctrl := gomock.NewController(s.T())
 	s.mockTaskRepo = mockTaskRepository.NewMockITaskRepository(ctrl)
 	s.underTest = taskService.New(s.mockTaskRepo)
 }
 
 func TestUserServiceSuite(t *testing.T) {
-	suite.Run(t, &testUserServiceSuite{})
+	suite.Run(t, &testTaskServiceSuite{})
 }
 
-func (s *testUserServiceSuite) TestUserService_Get() {
+func (s *testTaskServiceSuite) TestUserService_Get() {
 	s.Run("success - get", func() {
 		ctx := context.Background()
 
@@ -100,7 +100,7 @@ func (s *testUserServiceSuite) TestUserService_Get() {
 	})
 }
 
-func (s *testUserServiceSuite) TestUserService_GetByID() {
+func (s *testTaskServiceSuite) TestUserService_GetByID() {
 	s.Run("success - get by ID", func() {
 		ctx := context.Background()
 
@@ -155,7 +155,7 @@ func (s *testUserServiceSuite) TestUserService_GetByID() {
 	})
 }
 
-func (s *testUserServiceSuite) TestUserService_Create() {
+func (s *testTaskServiceSuite) TestUserService_Create() {
 	s.Run("success - create task", func() {
 		ctx := context.TODO()
 
@@ -193,7 +193,7 @@ func (s *testUserServiceSuite) TestUserService_Create() {
 	})
 }
 
-func (s *testUserServiceSuite) TestUserService_Update() {
+func (s *testTaskServiceSuite) TestUserService_Update() {
 	s.Run("success - update", func() {
 		ctx := context.Background()
 
@@ -242,7 +242,7 @@ func (s *testUserServiceSuite) TestUserService_Update() {
 	})
 }
 
-func (s *testUserServiceSuite) TestUserService_Delete() {
+func (s *testTaskServiceSuite) TestUserService_Delete() {
 	s.Run("success - delete", func() {
 		ctx := context.Background()
 

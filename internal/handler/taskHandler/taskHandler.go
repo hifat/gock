@@ -12,13 +12,13 @@ import (
 	"github.com/hifat/gock/internal/utils/httpResponse"
 )
 
-var NewTaskHandlerSet = wire.NewSet(NewTaskHandler)
+var NewSet = wire.NewSet(New)
 
 type TaskHandler struct {
 	taskSrv taskService.ITaskService
 }
 
-func NewTaskHandler(taskSrv taskService.ITaskService) TaskHandler {
+func New(taskSrv taskService.ITaskService) TaskHandler {
 	return TaskHandler{taskSrv}
 }
 

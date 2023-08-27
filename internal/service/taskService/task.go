@@ -11,7 +11,7 @@ import (
 	zlog "github.com/hifat/gock/pkg"
 )
 
-//go:generate mockgen -source=./task.go -destination=./mockTaskService/mockTaskService.go -package=mockUserService
+//go:generate mockgen -source=./task.go -destination=./mockTaskService/mockTaskService.go -package=mockTaskService
 type ITaskService interface {
 	Get(ctx context.Context, res *[]taskDomain.Task) error
 	GetByID(ctx context.Context, res *taskDomain.Task, taskID uuid.UUID) error
