@@ -28,11 +28,11 @@ func (s *testTaskServiceSuite) SetupSuite() {
 	s.underTest = taskService.New(s.mockTaskRepo)
 }
 
-func TestUserServiceSuite(t *testing.T) {
+func TestTaskServiceSuite(t *testing.T) {
 	suite.Run(t, &testTaskServiceSuite{})
 }
 
-func (s *testTaskServiceSuite) TestUserService_Get() {
+func (s *testTaskServiceSuite) TestTaskService_Get() {
 	s.Run("success - get", func() {
 		ctx := context.Background()
 
@@ -100,7 +100,7 @@ func (s *testTaskServiceSuite) TestUserService_Get() {
 	})
 }
 
-func (s *testTaskServiceSuite) TestUserService_GetByID() {
+func (s *testTaskServiceSuite) TestTaskService_GetByID() {
 	s.Run("success - get by ID", func() {
 		ctx := context.Background()
 
@@ -155,7 +155,7 @@ func (s *testTaskServiceSuite) TestUserService_GetByID() {
 	})
 }
 
-func (s *testTaskServiceSuite) TestUserService_Create() {
+func (s *testTaskServiceSuite) TestTaskService_Create() {
 	s.Run("success - create task", func() {
 		ctx := context.TODO()
 
@@ -193,7 +193,7 @@ func (s *testTaskServiceSuite) TestUserService_Create() {
 	})
 }
 
-func (s *testTaskServiceSuite) TestUserService_Update() {
+func (s *testTaskServiceSuite) TestTaskService_Update() {
 	s.Run("success - update", func() {
 		ctx := context.Background()
 
@@ -242,7 +242,7 @@ func (s *testTaskServiceSuite) TestUserService_Update() {
 	})
 }
 
-func (s *testTaskServiceSuite) TestUserService_Delete() {
+func (s *testTaskServiceSuite) TestTaskService_Delete() {
 	s.Run("success - delete", func() {
 		ctx := context.Background()
 
